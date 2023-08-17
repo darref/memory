@@ -2,9 +2,11 @@ function loadGame()
 {
     //reset
     document.body.innerHTML = "";
+    //fond d ecran abstract
+    document.body.style.backgroundImage = "url(memoryBackground.jpg)";
     //remplissage et mise ne page
     let banner = document.createElement("div");
-    banner.style.backgroundColor = "red";
+    banner.style.backgroundColor = "white";
     banner.style.width = "800px";
     banner.style.height = "70px";
     banner.style.margin = "20px";
