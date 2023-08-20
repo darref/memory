@@ -3,6 +3,16 @@ let previousTileImageClicked = "";
 let previousTileClicked:HTMLDivElement ;
 let nbCoups = 0;
 let voidDiv:HTMLDivElement ;
+let alreadyFoundTiles:Array<HTMLDivElement> = [];
+
+// Fonction pour mélanger un tableau de manière aléatoire (algorithme de Fisher-Yates)
+function melangerTableauTiles(tableau:Array<HTMLDivElement> , tableauImages:Array<string>) {
+    for (let i = tableau.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [tableau[i], tableau[j]] = [tableau[j], tableau[i]]; // Échanger les éléments
+      [tableauImages[i], tableauImages[j]] = [tableauImages[j], tableauImages[i]]; // Échanger les éléments
+    }
+}
 
 function getRandomInt(max:number) {
     return Math.floor(Math.random() * max);
@@ -91,35 +101,41 @@ function loadGame()
         })
     }
 
+    melangerTableauTiles(allTiles,allImages);
+
     allTiles.forEach((e, i )=>
     {
         e.addEventListener("click" , () =>
         {
 
-
-            if(!toggleClick) // si on click premiere fois
+            if(e != previousTileClicked && !alreadyFoundTiles.includes(e))
             {
-                e.style.backgroundImage = allImages[i];
-                toggleClick = true;
-                previousTileImageClicked = allImages[i];
-                previousTileClicked = e;
-            }
-            else // sinon c'est la deuxieme fois donc on verifie le resultat
-            {
-                if(allImages[i] != previousTileImageClicked) // si on a pas trouvé la paire
+                if(!toggleClick) // si on click premiere fois
                 {
-                    nbCoups++;
-                    e.style.backgroundImage = ""; // on reinitialise les deux images cliquées
-                    previousTileClicked.style.backgroundImage = "";
-                }
-                else // sinon c'est qu on a trouvé la paire 
-                {
-                    nbCoups++;
                     e.style.backgroundImage = allImages[i];
+                    toggleClick = true;
+                    previousTileImageClicked = allImages[i];
+                    previousTileClicked = e;
                 }
-                toggleClick = false;
-                previousTileClicked = voidDiv;
+                else // sinon c'est la deuxieme fois donc on verifie le resultat
+                {
+                    if(allImages[i] != previousTileImageClicked) // si on a pas trouvé la paire
+                    {
+                        nbCoups++;
+                        e.style.backgroundImage = ""; // on reinitialise les deux images cliquées
+                        previousTileClicked.style.backgroundImage = "";
+                    }
+                    else // sinon c'est qu on a trouvé la paire 
+                    {
+                        nbCoups++;
+                        e.style.backgroundImage = allImages[i];
+                        alreadyFoundTiles.push(e, previousTileClicked);
+                    }
+                    toggleClick = false;
+                    previousTileClicked = voidDiv;
+                }
             }
+                
         });
     });
 }
@@ -131,7 +147,4 @@ function loadGame()
     
 
 
-loadGame();
-loadGame();
-loadGame();
 loadGame();
