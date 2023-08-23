@@ -84,8 +84,6 @@ function loadGame()
             // Vous pouvez accéder aux URL comme ceci :
             image = data.message;
             console.log(image);
-            //choix aleatoire
-            let randomIndice = getRandomInt(8);
             //remplissage de l image
 
             allImages[i] = "url("+image+")";
