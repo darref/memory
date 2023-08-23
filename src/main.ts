@@ -4,11 +4,12 @@ let previousTileClicked:HTMLDivElement ;
 let nbCoups = 0;
 let voidDiv:HTMLDivElement ;
 let alreadyFoundTiles:Array<HTMLDivElement> = [];
+let busy:boolean = false;
 
 // Fonction pour mélanger un tableau de manière aléatoire (algorithme de Fisher-Yates)
 function melangerTableauTiles(tableau:Array<HTMLDivElement> , tableauImages:Array<string>) {
     for (let i = tableau.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
+      const j = Math.floor(Math.random() * (tableau.length - 1));
       [tableau[i], tableau[j]] = [tableau[j], tableau[i]]; // Échanger les éléments
       [tableauImages[i], tableauImages[j]] = [tableauImages[j], tableauImages[i]]; // Échanger les éléments
     }
@@ -108,7 +109,7 @@ function loadGame()
         e.addEventListener("click" , () =>
         {
 
-            if(e != previousTileClicked && !alreadyFoundTiles.includes(e))
+            if(e != previousTileClicked && !alreadyFoundTiles.includes(e) && !busy)
             {
                 if(!toggleClick) // si on click premiere fois
                 {
@@ -122,17 +123,30 @@ function loadGame()
                     if(allImages[i] != previousTileImageClicked) // si on a pas trouvé la paire
                     {
                         nbCoups++;
-                        e.style.backgroundImage = ""; // on reinitialise les deux images cliquées
-                        previousTileClicked.style.backgroundImage = "";
+                        e.style.backgroundImage = allImages[i];
+                        busy = true;
+                        setTimeout(()=>{ 
+                            
+                            e.style.backgroundImage = ""; // on reinitialise les deux images cliquées
+                            previousTileClicked.style.backgroundImage = "";
+                            previousTileClicked = voidDiv;
+                            busy = false;
+                        }, 700);
+                        
                     }
                     else // sinon c'est qu on a trouvé la paire 
                     {
                         nbCoups++;
                         e.style.backgroundImage = allImages[i];
                         alreadyFoundTiles.push(e, previousTileClicked);
+                        previousTileClicked = voidDiv;
+                        if(alreadyFoundTiles.length === 16)
+                        {
+                            goal();
+                        }
                     }
                     toggleClick = false;
-                    previousTileClicked = voidDiv;
+                    //
                 }
             }
                 
@@ -141,10 +155,51 @@ function loadGame()
 }
 
 
+function affichageDemarrage()
+{
+    let title = document.createElement("h1");
+    title.style.fontSize = "30px";
+    title.textContent = "Memory Game";
+    title.style.textAlign = "center";
+    document.body.appendChild(title);
+    //
+    let popupDemarrer = document.createElement("div");
+    popupDemarrer.style.width = "15%";
+    popupDemarrer.style.height = "15%";
+    popupDemarrer.innerText = "Démarrer le jeu? Cliquez ici.";
+    popupDemarrer.style.textAlign = "center";
+    popupDemarrer.style.backgroundColor = "grey";
+    document.body.appendChild(popupDemarrer);
+    popupDemarrer.addEventListener("click" , ()=>
+    {
+        loadGame();
+    });
+}
     
-    
-    
+function goal()
+{
+    document.body.innerHTML = "";
+    //
+    let title = document.createElement("h1");
+    title.style.fontSize = "70px";
+    title.textContent = "Vous avez reussi avec "+nbCoups+" coups! ";
+    title.style.textAlign = "center";
+    document.body.appendChild(title);
+    //
+    let popupRedemarrerPartie = document.createElement("div");
+    popupRedemarrerPartie.style.width = "30%";
+    popupRedemarrerPartie.style.height = "30%";
+    popupRedemarrerPartie.innerText = "Rejouer? Cliquez ici.";
+    popupRedemarrerPartie.style.textAlign = "center";
+    popupRedemarrerPartie.style.backgroundColor = "grey";
+    document.body.appendChild(popupRedemarrerPartie);
+    popupRedemarrerPartie.addEventListener("click" , ()=>
+    {
+        loadGame();
+    });
+}
     
 
+//
+affichageDemarrage();
 
-loadGame();
