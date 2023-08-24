@@ -155,18 +155,29 @@ function loadGame()
 
 function affichageDemarrage()
 {
+    document.body.style.backgroundImage = "url(/memoryBackground.jpg)";
+    //
     let title = document.createElement("h1");
-    title.style.fontSize = "30px";
+    title.style.fontSize = "100px";
     title.textContent = "Memory Game";
     title.style.textAlign = "center";
+    title.style.backgroundColor = "white";
     document.body.appendChild(title);
+    //
+    let textePopupDemarrer = document.createElement("p");
+    textePopupDemarrer.innerText = "Démarrer le jeu? Cliquez ici.";
+    textePopupDemarrer.style.verticalAlign = "middle";
+    textePopupDemarrer.style.fontSize = "30px";
     //
     let popupDemarrer = document.createElement("div");
     popupDemarrer.style.width = "15%";
     popupDemarrer.style.height = "15%";
-    popupDemarrer.innerText = "Démarrer le jeu? Cliquez ici.";
+    popupDemarrer.style.fontWeight ="bold";
     popupDemarrer.style.textAlign = "center";
+    popupDemarrer.style.border = "2px solid black"
     popupDemarrer.style.backgroundColor = "grey";
+    //
+    popupDemarrer.append(textePopupDemarrer);
     document.body.appendChild(popupDemarrer);
     popupDemarrer.addEventListener("click" , ()=>
     {
@@ -182,14 +193,25 @@ function goal()
     title.style.fontSize = "70px";
     title.textContent = "Vous avez reussi avec "+nbCoups+" coups! ";
     title.style.textAlign = "center";
+    title.style.backgroundColor = "white";
     document.body.appendChild(title);
+    //
+    //
+    let textePopupReDemarrer = document.createElement("p");
+    textePopupReDemarrer.innerText = "Recommencer le jeu? Cliquez ici.";
+    textePopupReDemarrer.style.verticalAlign = "middle";
+    textePopupReDemarrer.style.fontSize = "30px";
     //
     let popupRedemarrerPartie = document.createElement("button");
     popupRedemarrerPartie.style.width = "30%";
     popupRedemarrerPartie.style.height = "30%";
-    popupRedemarrerPartie.innerText = "Rejouer? Cliquez ici.";
+    popupRedemarrerPartie.style.border = "2px solid black"
+    popupRedemarrerPartie.style.fontStyle ="bold";
     popupRedemarrerPartie.style.textAlign = "center";
     popupRedemarrerPartie.style.backgroundColor = "grey";
+    //
+    popupRedemarrerPartie.append(textePopupReDemarrer);
+    //
     document.body.appendChild(popupRedemarrerPartie);
     popupRedemarrerPartie.addEventListener("click" , ()=>
     {
