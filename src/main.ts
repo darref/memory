@@ -155,7 +155,7 @@ function loadGame()
 
 function affichageDemarrage()
 {
-    document.body.style.backgroundImage = "memoryBackground.jpg";
+    document.body.style.backgroundImage = "url(memoryBackground.jpg)";
     //
     let title = document.createElement("h1");
     title.style.fontSize = "100px";
@@ -175,7 +175,7 @@ function affichageDemarrage()
     popupDemarrer.style.fontWeight ="bold";
     popupDemarrer.style.textAlign = "center";
     popupDemarrer.style.border = "2px solid black"
-    popupDemarrer.style.backgroundColor = "grey";
+    popupDemarrer.style.backgroundColor = "blue";
     //
     popupDemarrer.append(textePopupDemarrer);
     document.body.appendChild(popupDemarrer);
@@ -208,7 +208,7 @@ function goal()
     popupRedemarrerPartie.style.border = "2px solid black"
     popupRedemarrerPartie.style.fontStyle ="bold";
     popupRedemarrerPartie.style.textAlign = "center";
-    popupRedemarrerPartie.style.backgroundColor = "grey";
+    popupRedemarrerPartie.style.backgroundColor = "red";
     //
     popupRedemarrerPartie.append(textePopupReDemarrer);
     //
