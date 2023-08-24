@@ -155,7 +155,7 @@ function loadGame()
 
 function affichageDemarrage()
 {
-    document.body.style.backgroundImage = "url(/memoryBackground.jpg)";
+    document.body.style.backgroundImage = "url(./memoryBackground.jpg)";
     //
     let title = document.createElement("h1");
     title.style.fontSize = "100px";
