@@ -25,7 +25,7 @@ function loadGame()
     nbCoups = 0;
     document.body.innerHTML = "";
     //fond d ecran abstract
-    document.body.style.backgroundImage = "url(memoryBackground.jpg)";
+    document.body.style.backgroundImage = "url(/memoryBackground.jpg)";
     //remplissage et mise ne page
     let banner = document.createElement("div");
     banner.style.backgroundColor = "white";
@@ -184,7 +184,7 @@ function goal()
     title.style.textAlign = "center";
     document.body.appendChild(title);
     //
-    let popupRedemarrerPartie = document.createElement("div");
+    let popupRedemarrerPartie = document.createElement("button");
     popupRedemarrerPartie.style.width = "30%";
     popupRedemarrerPartie.style.height = "30%";
     popupRedemarrerPartie.innerText = "Rejouer? Cliquez ici.";
