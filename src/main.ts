@@ -5,6 +5,7 @@ let nbCoups = 0;
 let voidDiv:HTMLDivElement ;
 let alreadyFoundTiles:Array<HTMLDivElement> = [];
 let busy:boolean = false;
+let chronoValue = 0;
 
 // Fonction pour mélanger un tableau de manière aléatoire (algorithme de Fisher-Yates)
 function melangerTableauTiles(tableau:Array<HTMLDivElement> , tableauImages:Array<string>) {
@@ -19,11 +20,29 @@ function getRandomInt(max:number) {
     return Math.floor(Math.random() * max);
   }
 
+function updateChrono(chronoDiv:HTMLDivElement)
+{
+    let value = ++chronoValue;
+    chronoDiv.innerText = String(value);
+    setTimeout(()=>{
+        updateChrono(chronoDiv)
+    } , 1000);
+}
+
 function loadGame()
 {
     //reset
     nbCoups = 0;
+    chronoValue = 0;
     document.body.innerHTML = "";
+    //chronometer
+    let chronometer = document.createElement("div");
+    chronometer.style.position = "relative";
+    chronometer.style.marginLeft = "20px";
+    chronometer.style.fontSize = '100px';
+    chronometer.style.backgroundColor = "white";
+    updateChrono(chronometer);
+    document.body.appendChild(chronometer);
     //fond d ecran abstract
     document.body.style.backgroundImage = "url(/memoryBackground.jpg)";
     //remplissage et mise ne page
@@ -191,11 +210,10 @@ function goal()
     //
     let title = document.createElement("h1");
     title.style.fontSize = "70px";
-    title.textContent = "Vous avez reussi avec "+nbCoups+" coups! ";
+    title.textContent = "Vous avez reussi avec "+nbCoups+" coups! Et en " + chronoValue + " secondes !";
     title.style.textAlign = "center";
     title.style.backgroundColor = "white";
     document.body.appendChild(title);
-    //
     //
     let textePopupReDemarrer = document.createElement("p");
     textePopupReDemarrer.innerText = "Recommencer le jeu? Cliquez ici.";
