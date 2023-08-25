@@ -38,7 +38,7 @@ function loadGame()
     document.body.innerHTML = "";
     //chronometer
     let chronometer = document.createElement("div");
-    chronometer.style.position = "fixed";
+    chronometer.style.display = "block";
     chronometer.style.marginLeft = "20px";
     chronometer.style.fontSize = '100px';
     chronometer.style.backgroundColor = "white";
