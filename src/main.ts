@@ -43,7 +43,7 @@ function loadGame()
     chronometer.style.fontSize = '100px';
     chronometer.style.backgroundColor = "white";
     updateChrono(chronometer);
-    document.body.appendChild(chronometer);
+    
     //fond d ecran abstract
     document.body.style.backgroundImage = "url(/memoryBackground.jpg)";
     //remplissage et mise ne page
@@ -70,6 +70,7 @@ function loadGame()
 
     banner.appendChild(title);
 
+    document.body.appendChild(chronometer);
     document.body.appendChild(banner);
     document.body.appendChild(gameGrid);
 
