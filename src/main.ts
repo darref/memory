@@ -52,6 +52,7 @@ function loadGame()
     banner.style.width = "800px";
     banner.style.height = "70px";
     banner.style.margin = "20px";
+    banner.style.border = "1px solid black"
 
     let title = document.createElement("h1");
     title.style.fontSize = "30px";
